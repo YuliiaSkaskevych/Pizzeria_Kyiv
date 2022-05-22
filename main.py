@@ -1,62 +1,32 @@
-from information.pizzas_info import pizzas_items
+
+from items.receipt import Receipt
 from items.receiptline import ReceiptLine
-from items.pizza import Pizza
-from collections import deque
-import itertools
+from items.pizzastore import PizzaStore
 import random
 
-pizzas = [Pizza(idx, name, price, description) for idx, name, price, description in pizzas_items]
-
-def greetings():
-    print("Welcome to the best pizzeria in Kyiv - ARSENAL!")
-    print("To view the menu - enter 1")
-    print("Exit - 0")
-    print("To see pizzas that cost more than 150 -enter 2", "To see the queue - enter 3", sep="\n")
-
-
-def decorator(func):
-    def inner(l):
-        a = "*"*40
-        print(a)
-        func(l)
-        print(f"Total: {len(l)}")
-        print(a)
-    return inner
-
-@decorator
-def print_menu(l):
-    for element in l:
-        print(f"Pizza:{element.name} Price:{element.price}")
-        print(f"Description of pizza:{element.description}")
-
-def print_filter(n, a):
-    for element in n:
-        if element.price > a:
-            print(f"Pizza:{element.name} Price:{element.price}")
-
-def deque_tables():
-    q = deque([random.randint(1, 9) for i in range(20)])
-    print("Numbers of tables in queue:", q)
-    while len(q):
-        a = random.sample(pizzas, random.randint(1, 11))
-        print(f"Table №{q.popleft(), [element.name for element in a]}")
-    print("No orders")
-
+pizzastore = PizzaStore()
 
 while True:
-    greetings()
+    pizzastore.greetings()
     menu=input("Please, enter the number: ")
     match menu:
         case "0":
             print("Good luck!")
             break
         case "1":
-            print("You can see our menu:")
-            print_menu(pizzas)
+            pizzastore.print_menu(pizzastore.pizzas)
         case "2":
-            print_filter(pizzas, 150)
+            filter = [element for element in pizzastore.pizzas if element.price > 150]
+            pizzastore.print_menu(filter)
         case "3":
-            deque_tables()
+            check = Receipt(pizzastore.get_table())
+            a = random.sample(pizzastore.pizzas, random.randint(1, 5))
+            for pizzas_items in a:
+                check.add_line(ReceiptLine(pizzas_items, random.randint(1, 5)))
+            pizzastore.add_receipt(check)
+            pizzastore.print_receipts()
+        case "4":
+            pizzastore.deque_tables()
         case _:
             print("Wrong input")
             print("Please, try again!")
