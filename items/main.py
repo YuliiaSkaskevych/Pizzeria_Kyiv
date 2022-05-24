@@ -6,6 +6,7 @@ import random
 
 pizzastore = PizzaStore()
 
+
 while True:
     pizzastore.greetings()
     menu=input("Please, enter the number: ")
