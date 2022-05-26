@@ -1,3 +1,4 @@
+from information.pizzas_info import pizzas_items
 from items.pizza import Pizza
 
 class ReceiptLine:
@@ -15,6 +16,20 @@ class ReceiptLine:
             self.num -= abs(n)
         else:
             self.num += 0
+
+    def amount_pizzas(self, n: int):
+        if (n>0):
+            self.num = n
+        else:
+            print("Error input")
+
+
+
+
+
+
+
+
 
 
 
