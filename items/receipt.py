@@ -8,7 +8,7 @@ class Receipt:
 
     def __init__(self, table: Table):
         self.table = table
-        self.datetime = datetime.now()
+        self.datetime = datetime.now().replace(microsecond=0)
         self.lines = []
         self.num = Receipt.n_Receipt
         Receipt.n_Receipt += 1

@@ -1,4 +1,4 @@
-from information.pizzas_info import pizzas_items
+
 from items.pizza import Pizza
 
 class ReceiptLine:
@@ -7,7 +7,7 @@ class ReceiptLine:
         self.num = num
 
     def __str__(self):
-        return f"{self.pizza.name} * {self.num} = {self.pizza.get_price()*self.num} UAN"
+        return f"{self.pizza.name:<15} * {self.num:<3} = {self.pizza.get_price()*self.num:^5} UAN "
 
     def change_number_pizzas(self, n: int):
         if (n>0):

@@ -1,10 +1,17 @@
 import random
+import csv
 from collections import deque
 from items.pizza import Pizza
 from items.receipt import Receipt
 from items.table import Table
-from information.table_info import table
-from information.pizzas_info import pizzas_items
+
+
+
+read_pizza = open("src\pizzastore\information\pizzas_info", "r")
+pizza_info = csv.reader(read_pizza, delimiter=",", quoting=csv.QUOTE_MINIMAL)
+
+read_table = open("src\pizzastore\information\info_tables", "r")
+tables_info = csv.reader(read_table, delimiter=",", quoting=csv.QUOTE_MINIMAL)
 
 
 class SingletonMeta(type):
@@ -28,8 +35,8 @@ def decorator(method):
 
 class PizzaStore(metaclass=SingletonMeta):
     def __init__(self):
-        self.pizzas = [Pizza(*i) for i in pizzas_items]
-        self.table = [Table(*i) for i in table]
+        self.pizzas = [Pizza(int(i[0]),i[1],int(i[2]),i[3]) for i in pizza_info]
+        self.table = [Table(int(i[0]),i[1],i[2]) for i in tables_info]
         self.receipts = []
 
     def print_receipts(self):
@@ -49,7 +56,7 @@ class PizzaStore(metaclass=SingletonMeta):
         print("Welcome to the best pizzeria in Kyiv - ARSENAL!")
         print("To view the menu - enter 1")
         print("Exit - 0")
-        print("To see pizzas that cost more than 150 -enter 2", "To see the receipt - enter 3",
+        print("To see pizzas that cost more than you want -enter 2", "To see the receipt - enter 3",
               "To see the deque of tables - enter 4", "To editor receipt - enter 5" , sep="\n")
 
     def editor(self):
