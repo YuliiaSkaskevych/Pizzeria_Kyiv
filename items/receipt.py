@@ -16,10 +16,16 @@ class Receipt:
     def add_line(self, line: ReceiptLine):
         self.lines.append(line)
 
+
     def __str__(self):
         a = "\n".join([str(item) for item in self.lines])
         return f'{self.datetime}' \
                f'\n{self.table} ' \
                f'\nOrder № {self.num} ' \
                f'\n{a}'
+
+
+
+
+
 
