@@ -66,7 +66,7 @@ while True:
                                 print(check)
                                 break
                     else:
-                        print("Error input!")
+                        print("Error input! Try again!")
                 except ValueError:
                     print("Error input!")
         case _:
